@@ -61,4 +61,17 @@
         [SVProgressHUD showErrorWithStatus:@"密碼不正確"];
     }
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"goToVIPMainView"])
+    {
+        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"登出"
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:nil
+                                                                  action:nil];
+        
+        self.navigationItem.backBarButtonItem = button;
+    }
+}
 @end

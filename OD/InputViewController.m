@@ -56,6 +56,9 @@
         NSDate *date = [self.df dateFromString:self.myTextField.text];
         if(date)
            [self.myDatePicker setDate:date];
+        
+        self.descriptionLabel.text = @"日期格式為 年/月/日";
+        [self.descriptionLabel sizeToFit];
     }
     else
     {
@@ -141,10 +144,28 @@
             if([self.myLabel.text isEqualToString:@"電話"] == YES)
             {
                 self.myTextField.keyboardType = UIKeyboardTypeNumberPad;
+                
+                self.descriptionLabel.text = @"範例:\n\(02)2123-4567\n0936-123-456\n0936123456";
+                [self.descriptionLabel sizeToFit];
             }
             else if([self.myLabel.text isEqualToString:@"Email"] == YES)
             {
                 self.myTextField.keyboardType = UIKeyboardTypeEmailAddress;
+            }
+            else if([self.myLabel.text isEqualToString:@"抽菸品牌"] == YES)
+            {
+                self.descriptionLabel.text = @"以逗號作為區分, 例如:\n大衛杜夫,DUNHILL,七星";
+                [self.descriptionLabel sizeToFit];
+            }
+            else if([self.myLabel.text isEqualToString:@"喜愛時尚品牌"] == YES)
+            {
+                self.descriptionLabel.text = @"以逗號作為區分, 例如:\nTIFFANY,CHANEL,Armani";
+                [self.descriptionLabel sizeToFit];
+            }
+            else if([self.myLabel.text isEqualToString:@"喜愛音樂類型"] == YES)
+            {
+                self.descriptionLabel.text = @"以逗號作為區分, 例如:\nPOP,RAP,ROCK";
+                [self.descriptionLabel sizeToFit];
             }
             
             shouldBringUpKeyboard = YES;
@@ -158,6 +179,7 @@
     [self setMyTextField:nil];
     [self setMyDatePicker:nil];
     [self setMySegement:nil];
+    [self setDescriptionLabel:nil];
     [super viewDidUnload];
 }
 

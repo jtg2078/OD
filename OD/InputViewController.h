@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *myTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *myDatePicker;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *mySegement;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @property (strong, nonatomic) NSString *titleText;
 @property (strong, nonatomic) NSString *detailText;
