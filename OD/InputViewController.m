@@ -14,11 +14,15 @@
 
 @implementation InputViewController
 
+#pragma mark - memory management
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - init
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,6 +32,8 @@
     }
     return self;
 }
+
+#pragma mark - view lifecycle
 
 - (void)viewDidLoad
 {
@@ -174,7 +180,8 @@
     }
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     [self setMyLabel:nil];
     [self setMyTextField:nil];
     [self setMyDatePicker:nil];
@@ -186,11 +193,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    if(shouldBringUpKeyboard)
-    {
-        [self.myTextField becomeFirstResponder];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -198,6 +200,18 @@
     self.writeBackLabel.text = self.myTextField.text;
     [super viewWillDisappear:animated];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if(shouldBringUpKeyboard)
+    {
+        [self.myTextField becomeFirstResponder];
+    }
+}
+
+#pragma mark - user interaction
 
 - (IBAction)datePickerValueChanged:(id)sender
 {

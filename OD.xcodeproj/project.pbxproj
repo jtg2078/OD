@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960872A7166786B00095C7A1 /* dummy_form.plist in Resources */ = {isa = PBXBuildFile; fileRef = 960872A6166786B00095C7A1 /* dummy_form.plist */; };
 		960C31401664AAF600614D46 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960C313F1664AAF600614D46 /* UIKit.framework */; };
 		960C31421664AAF600614D46 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960C31411664AAF600614D46 /* Foundation.framework */; };
 		960C31441664AAF600614D46 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960C31431664AAF600614D46 /* CoreGraphics.framework */; };
@@ -68,6 +69,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		960872A6166786B00095C7A1 /* dummy_form.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dummy_form.plist; sourceTree = "<group>"; };
 		960C313B1664AAF600614D46 /* OD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		960C313F1664AAF600614D46 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		960C31411664AAF600614D46 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -440,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				960C320B1664D08C00614D46 /* dummy_photo.jpg */,
+				960872A6166786B00095C7A1 /* dummy_form.plist */,
 			);
 			path = "dummy data";
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				960C321B1664DEA200614D46 /* 640x910-g.png in Resources */,
 				960C321C1664DEA200614D46 /* 640x910-r.png in Resources */,
 				960C321D1664DEA200614D46 /* 640x910-w.png in Resources */,
+				960872A7166786B00095C7A1 /* dummy_form.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>type</key>
+		<string>keyboard</string>
+		<key>title</key>
+		<string>姓名</string>
+		<key>content</key>
+		<dict>
+			<key>type</key>
+			<string>string</string>
+			<key>default</key>
+			<string></string>
+			<key>placeholder</key>
+			<string>在這裡輸入VIP姓名</string>
+			<key>description</key>
+			<string>例如: 王大明, John Smith</string>
+			<key>must</key>
+			<true/>
+		</dict>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>switch</string>
+		<key>title</key>
+		<string>是否吸菸</string>
+		<key>content</key>
+		<dict>
+			<key>type</key>
+			<string>Boolean</string>
+			<key>default</key>
+			<false/>
+			<key>yes</key>
+			<string>是</string>
+			<key>no</key>
+			<string>否</string>
+			<key>must</key>
+			<true/>
+		</dict>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>select</string>
+		<key>title</key>
+		<string>是否吸菸</string>
+		<key>content</key>
+		<dict>
+			<key>type</key>
+			<string>Boolean</string>
+			<key>default</key>
+			<false/>
+			<key>yes</key>
+			<string>是</string>
+			<key>no</key>
+			<string>否</string>
+			<key>must</key>
+			<true/>
+		</dict>
+	</dict>
+</array>
+</plist>

@@ -9,12 +9,23 @@
 #import "ProfileViewController.h"
 #import "InputViewController.h"
 #import "UIImage+Resize.h"
+#import "AppDelegate.h"
 
 @interface ProfileViewController ()
 
 @end
 
 @implementation ProfileViewController
+
+#pragma mark - memory management
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - init
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -24,6 +35,8 @@
     }
     return self;
 }
+
+#pragma mark - view lifecycle
 
 - (void)viewDidLoad
 {
@@ -36,11 +49,14 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewDidUnload
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self setSubmitButton:nil];
+    [self setPhotoView:nil];
+    [super viewDidUnload];
 }
+
+#pragma mark - segue related
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -69,7 +85,37 @@
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
-    else if(indexPath.section == 2 && indexPath.row == 6)
+    else if(indexPath.section == 2)
+    {
+        self.currentCellLabel = nil;
+        self.currentCellDetailLabel = nil;
+        
+        for(int i = 0; i < [tableView numberOfRowsInSection:indexPath.section]; i++)
+        {
+            NSIndexPath *idx = [NSIndexPath indexPathForRow:i inSection:indexPath.section];
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:idx];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else if(indexPath.section == 4)
+    {
+        self.currentCellLabel = nil;
+        self.currentCellDetailLabel = nil;
+        
+        for(int i = 0; i < [tableView numberOfRowsInSection:indexPath.section]; i++)
+        {
+            NSIndexPath *idx = [NSIndexPath indexPathForRow:i inSection:indexPath.section];
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:idx];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else if(indexPath.section == 5 && indexPath.row == 5)
     {
         // concert view is using custom cell
         
@@ -90,40 +136,6 @@
         NSLog(@"%@", self.currentCellDetailLabel.text);
         [self performSegueWithIdentifier:@"pushEditViewController" sender:self];
     }
-    
-}
-
-- (IBAction)submitButtonPressed:(id)sender
-{
-    [SVProgressHUD showWithStatus:@"上傳中"];
-    int64_t delayInSeconds = 2.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [SVProgressHUD showSuccessWithStatus:@"上傳成功"];
-        [self.navigationController popViewControllerAnimated:YES];
-    });
-}
-
-- (void)viewDidUnload {
-    [self setSubmitButton:nil];
-    [self setPhotoView:nil];
-    [super viewDidUnload];
-}
-
-#pragma mark - misc methods
-
-- (void)takePhoto
-{
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-#if TARGET_IPHONE_SIMULATOR
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-#else
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-#endif
-    imagePickerController.editing = YES;
-    imagePickerController.delegate = (id)self;
-    
-    [self presentModalViewController:imagePickerController animated:YES];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -152,6 +164,41 @@
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [picker dismissModalViewControllerAnimated:NO];
+}
+
+#pragma mark - user interaction
+
+- (IBAction)submitButtonPressed:(id)sender
+{
+    [SVProgressHUD showWithStatus:@"上傳中"];
+    int64_t delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [SVProgressHUD showSuccessWithStatus:@"上傳成功"];
+        
+        int64_t delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            UITabBarController *tbc = (UITabBarController *)delegate.window.rootViewController;
+            tbc.selectedIndex = 0;
+        });
+    });
+}
+
+- (void)takePhoto
+{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+#if TARGET_IPHONE_SIMULATOR
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+#else
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+#endif
+    imagePickerController.editing = YES;
+    imagePickerController.delegate = (id)self;
+    
+    [self presentModalViewController:imagePickerController animated:YES];
 }
 
 @end
