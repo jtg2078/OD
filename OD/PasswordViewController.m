@@ -14,6 +14,16 @@
 
 @implementation PasswordViewController
 
+#pragma mark - memeory management
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - init
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -23,6 +33,8 @@
     return self;
 }
 
+#pragma mark - view lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -31,35 +43,38 @@
     self.myTextField.inputAccessoryView = self.myToolbar;
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewDidUnload
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)viewDidUnload {
     [self setMyTextField:nil];
-    [self setMyButton:nil];
     [self setMyToolbar:nil];
     [super viewDidUnload];
 }
-- (IBAction)closeKeyboardPressed:(id)sender {
-    
-    [self.view endEditing:YES];
-}
 
-- (IBAction)myButtonPressed:(id)sender
+#pragma mark - main methods
+
+- (BOOL)processEntry
 {
     NSString *defaultPassword = @"0000";
+    BOOL result = NO;
     
     if([self.myTextField.text isEqualToString:defaultPassword] == YES)
     {
         [self performSegueWithIdentifier:@"goToVIPMainView" sender:self];
+        result = YES;
     }
     else
     {
         [SVProgressHUD showErrorWithStatus:@"密碼不正確"];
     }
+    
+return result;
+}
+
+#pragma mark - user interaction
+
+- (IBAction)closeKeyboardPressed:(id)sender {
+    
+    [self.view endEditing:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -74,4 +89,13 @@
         self.navigationItem.backBarButtonItem = button;
     }
 }
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    return [self processEntry];
+}
+
+
 @end

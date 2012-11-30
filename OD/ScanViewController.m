@@ -78,9 +78,6 @@
         self.okOverLayImage = [UIImage imageNamed:@"640x734-g.png"];
         self.noLayImage = [UIImage imageNamed:@"640x734-r.png"];
         self.bgImage = [UIImage imageNamed:@"640x734-bg.png"];
-        CGRect frame = self.myReaderView.frame;
-        frame.origin.y -= 44;
-        self.myReaderView.frame = frame;
     }
     
     self.backgroundView.image = self.bgImage;

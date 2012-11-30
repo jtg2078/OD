@@ -10,9 +10,10 @@
 #import "InputViewController.h"
 #import "UIImage+Resize.h"
 #import "AppDelegate.h"
+#import "ODMananger.h"
 
 @interface ProfileViewController ()
-
+@property (nonatomic, weak) ODMananger *manager;
 @end
 
 @implementation ProfileViewController
@@ -47,6 +48,9 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.otherIndustryTextField.inputAccessoryView = self.keyboardToolbar;
+    self.manager = [ODMananger sharedInstance];
 }
 
 - (void)viewDidUnload
@@ -54,6 +58,8 @@
     [self setSubmitButton:nil];
     [self setPhotoView:nil];
     [self setMyTableView:nil];
+    [self setOtherIndustryTextField:nil];
+    [self setKeyboardToolbar:nil];
     [super viewDidUnload];
 }
 
@@ -74,7 +80,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     if(indexPath.section == 0 && indexPath.row == 0)
     {
@@ -98,7 +104,6 @@
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     else if(indexPath.section == 4)
@@ -113,17 +118,7 @@
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    else if(indexPath.section == 5 && indexPath.row == 5)
-    {
-        // concert view is using custom cell
-        
-        UILabel *titleLabel = (UILabel *)[cell.contentView viewWithTag:1];
-        UILabel *detailLabel = (UILabel *)[cell.contentView viewWithTag:2];
-        self.currentCellLabel = titleLabel;
-        self.currentCellDetailLabel = detailLabel;
     }
     else
     {
@@ -188,21 +183,12 @@
     });
 }
 
-- (void)takePhoto
+- (IBAction)closeKeyboardPressed:(id)sender
 {
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-#if TARGET_IPHONE_SIMULATOR
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-#else
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-#endif
-    imagePickerController.editing = YES;
-    imagePickerController.delegate = (id)self;
-    
-    [self presentModalViewController:imagePickerController animated:YES];
+    [self.view endEditing:YES];
 }
 
-- (IBAction) renderScrollViewToImage
+- (IBAction)screenshotButtonPressed:(id)sender
 {
     UIImage* image = nil;
     
@@ -222,10 +208,24 @@
     }
     UIGraphicsEndImageContext();
     
-    if (image != nil) {
-        [UIImagePNGRepresentation(image) writeToFile: @"/tmp/test.png" atomically: YES];
-        system("open /tmp/test.png");
+    if (image != nil)
+    {
+        [self.manager sendEmailWithImage:image];
     }
+}
+
+- (void)takePhoto
+{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+#if TARGET_IPHONE_SIMULATOR
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+#else
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+#endif
+    imagePickerController.editing = YES;
+    imagePickerController.delegate = (id)self;
+    
+    [self presentModalViewController:imagePickerController animated:YES];
 }
 
 @end

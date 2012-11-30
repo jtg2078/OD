@@ -66,6 +66,10 @@
 		960C324D1666205300614D46 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 960C324B1666205300614D46 /* libTestFlight.a */; };
 		960C324F166622D300614D46 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 960C324E166622D300614D46 /* libz.dylib */; };
 		96C85450166700B8000A44D8 /* MainFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C8544F166700B8000A44D8 /* MainFunctionViewController.m */; };
+		96FADBB31668A2AD0003D147 /* photoPlaceHolder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FADBB11668A2AD0003D147 /* photoPlaceHolder@2x.png */; };
+		96FADBB41668A2AD0003D147 /* photoPlaceHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FADBB21668A2AD0003D147 /* photoPlaceHolder.png */; };
+		96FADBB91668A8BE0003D147 /* ODMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FADBB81668A8BE0003D147 /* ODMananger.m */; };
+		96FADBBB1668AB490003D147 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FADBBA1668AB490003D147 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +184,11 @@
 		960C324E166622D300614D46 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		96C8544E166700B8000A44D8 /* MainFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainFunctionViewController.h; sourceTree = "<group>"; };
 		96C8544F166700B8000A44D8 /* MainFunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainFunctionViewController.m; sourceTree = "<group>"; };
+		96FADBB11668A2AD0003D147 /* photoPlaceHolder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoPlaceHolder@2x.png"; sourceTree = "<group>"; };
+		96FADBB21668A2AD0003D147 /* photoPlaceHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photoPlaceHolder.png; sourceTree = "<group>"; };
+		96FADBB71668A8BE0003D147 /* ODMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODMananger.h; path = Manager/ODMananger.h; sourceTree = "<group>"; };
+		96FADBB81668A8BE0003D147 /* ODMananger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODMananger.m; path = Manager/ODMananger.m; sourceTree = "<group>"; };
+		96FADBBA1668AB490003D147 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +196,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96FADBBB1668AB490003D147 /* MessageUI.framework in Frameworks */,
 				960C324F166622D300614D46 /* libz.dylib in Frameworks */,
 				960C32041664BBC800614D46 /* libiconv.dylib in Frameworks */,
 				960C31FA1664B47500614D46 /* AVFoundation.framework in Frameworks */,
@@ -214,6 +224,7 @@
 			children = (
 				960C32091664D08C00614D46 /* Asset */,
 				960C31981664B3A700614D46 /* Library */,
+				96FADBB61668A8310003D147 /* Manager */,
 				960C31451664AAF600614D46 /* OD */,
 				960C313E1664AAF600614D46 /* Frameworks */,
 				960C313C1664AAF600614D46 /* Products */,
@@ -240,6 +251,7 @@
 				960C31411664AAF600614D46 /* Foundation.framework */,
 				960C32031664BBC800614D46 /* libiconv.dylib */,
 				960C324E166622D300614D46 /* libz.dylib */,
+				96FADBBA1668AB490003D147 /* MessageUI.framework */,
 				960C31F11664B43100614D46 /* MobileCoreServices.framework */,
 				960C31F31664B45A00614D46 /* QuartzCore.framework */,
 				960C31E71664B3F800614D46 /* SystemConfiguration.framework */,
@@ -450,6 +462,8 @@
 		960C320D1664DEA200614D46 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				96FADBB11668A2AD0003D147 /* photoPlaceHolder@2x.png */,
+				96FADBB21668A2AD0003D147 /* photoPlaceHolder.png */,
 				960C320E1664DEA200614D46 /* 640x734-bg.png */,
 				960C320F1664DEA200614D46 /* 640x734-g.png */,
 				960C32101664DEA200614D46 /* 640x734-r.png */,
@@ -484,6 +498,15 @@
 				960C324C1666205300614D46 /* TestFlight.h */,
 			);
 			path = TestFlight1.2beta;
+			sourceTree = "<group>";
+		};
+		96FADBB61668A8310003D147 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				96FADBB71668A8BE0003D147 /* ODMananger.h */,
+				96FADBB81668A8BE0003D147 /* ODMananger.m */,
+			);
+			name = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -557,6 +580,8 @@
 				960C321C1664DEA200614D46 /* 640x910-r.png in Resources */,
 				960C321D1664DEA200614D46 /* 640x910-w.png in Resources */,
 				960872A7166786B00095C7A1 /* dummy_form.plist in Resources */,
+				96FADBB31668A2AD0003D147 /* photoPlaceHolder@2x.png in Resources */,
+				96FADBB41668A2AD0003D147 /* photoPlaceHolder.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +615,7 @@
 				960C324816661A2C00614D46 /* UIImage+Resize.m in Sources */,
 				960C324916661A2C00614D46 /* UIImage+RoundedCorner.m in Sources */,
 				96C85450166700B8000A44D8 /* MainFunctionViewController.m in Sources */,
+				96FADBB91668A8BE0003D147 /* ODMananger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

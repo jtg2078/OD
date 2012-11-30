@@ -8,16 +8,14 @@
 
 #import "BaseViewController.h"
 
-@interface PasswordViewController : BaseViewController
+@interface PasswordViewController : BaseViewController <UITextFieldDelegate>
 {
     
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *myTextField;
-@property (weak, nonatomic) IBOutlet UIButton *myButton;
 @property (strong, nonatomic) IBOutlet UIToolbar *myToolbar;
-- (IBAction)closeKeyboardPressed:(id)sender;
 
-- (IBAction)myButtonPressed:(id)sender;
+- (IBAction)closeKeyboardPressed:(id)sender;
 
 @end
