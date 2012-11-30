@@ -29,7 +29,7 @@
     {
         // This is will run before iOS6 and you can use openUDID or other
         // method to generate an identifier
-        [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+        //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
     }
     
     return YES;

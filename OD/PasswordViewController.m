@@ -40,6 +40,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    [self.myTextField becomeFirstResponder];
     self.myTextField.inputAccessoryView = self.myToolbar;
 }
 
