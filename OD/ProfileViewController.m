@@ -53,6 +53,7 @@
 {
     [self setSubmitButton:nil];
     [self setPhotoView:nil];
+    [self setMyTableView:nil];
     [super viewDidUnload];
 }
 
@@ -199,6 +200,32 @@
     imagePickerController.delegate = (id)self;
     
     [self presentModalViewController:imagePickerController animated:YES];
+}
+
+- (IBAction) renderScrollViewToImage
+{
+    UIImage* image = nil;
+    
+    UIGraphicsBeginImageContext(self.myTableView.contentSize);
+    {
+        CGPoint savedContentOffset = self.myTableView.contentOffset;
+        CGRect savedFrame = self.myTableView.frame;
+        
+        self.myTableView.contentOffset = CGPointZero;
+        self.myTableView.frame = CGRectMake(0, 0, self.myTableView.contentSize.width, self.myTableView.contentSize.height);
+        
+        [self.myTableView.layer renderInContext: UIGraphicsGetCurrentContext()];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        self.myTableView.contentOffset = savedContentOffset;
+        self.myTableView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    if (image != nil) {
+        [UIImagePNGRepresentation(image) writeToFile: @"/tmp/test.png" atomically: YES];
+        system("open /tmp/test.png");
+    }
 }
 
 @end
