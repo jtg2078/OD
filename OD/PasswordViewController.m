@@ -53,22 +53,21 @@
 
 #pragma mark - main methods
 
-- (BOOL)processEntry
+- (void)processEntry
 {
-    NSString *defaultPassword = @"0000";
-    BOOL result = NO;
+    [SVProgressHUD show];
     
-    if([self.myTextField.text isEqualToString:defaultPassword] == YES)
-    {
-        [self performSegueWithIdentifier:@"goToVIPMainView" sender:self];
-        result = YES;
-    }
-    else
-    {
-        [SVProgressHUD showErrorWithStatus:@"密碼不正確"];
-    }
-    
-return result;
+    [self.manager login:self.myTextField.text callback:^(BOOL result) {
+        if(result)
+        {
+            [SVProgressHUD dismiss];
+            [self performSegueWithIdentifier:@"goToVIPMainView" sender:self];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:@"密碼不正確"];
+        }
+    }];
 }
 
 #pragma mark - user interaction
@@ -95,7 +94,8 @@ return result;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    return [self processEntry];
+    [self processEntry];
+    return YES;
 }
 
 

@@ -16,6 +16,7 @@
     self = [super init];
     if (self) {
         appDelegate = [UIApplication sharedApplication].delegate;
+        self.myClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://loryn.dbx.tw"]];
     }
     return self;
 }
@@ -40,6 +41,125 @@
     [picker setMessageBody:emailBody isHTML:NO];
     
     [appDelegate.window.rootViewController presentModalViewController:picker animated:YES];
+}
+
+- (void)login:(NSString *)code callback:(void (^)(BOOL result))callback
+{
+    NSLog(@"Now checking login code:[%@]", code);
+    
+    NSString *path = @"od/admin/admActionApp/login.php";
+    NSDictionary *param = [NSDictionary dictionaryWithObject:code forKey:@"loginPw"];
+    [self.myClient postPath:path parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString *ret = [[NSString alloc] initWithBytes:[responseObject bytes]
+                                                 length:[responseObject length]
+                                               encoding:NSUTF8StringEncoding];
+        BOOL result = [ret isEqualToString:@"0"] == YES;
+        
+        if(callback)
+            callback(result);
+            
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if(callback)
+            callback(NO);
+        
+    }];
+}
+
+- (void)checkScan:(NSString *)code callback:(void (^)(ScanResult result))callback
+{
+    NSString *path = @"";
+    NSDictionary *param = [NSDictionary dictionaryWithObject:code forKey:@"code"];
+    [self.myClient getPath:path parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
+
+/*
+ NSData *data = [myDic objectForKey:@"image"];
+ 
+ NSMutableURLRequest *myRequest = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/app/xueCreatPaletteNew.php" parameters:params constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+ [formData appendPartWithFileData:data name:@"upfile" fileName:@"upfile.jpg" mimeType:@"image/jpeg"];
+ }];
+ */
+
+- (void)submitProfile:(NSDictionary *)profile photo:(UIImage *)photo callback:(void (^)(ProfileResult result))callback
+{
+    NSString *path = @"od/admin/admActionApp/vipAdd.php";
+    /*
+    [self.myClient postPath:path parameters:profile success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString *ret = [NSString stringWithUTF8String:[responseObject bytes]];
+        
+        ProfileResult result = ProfileResultFAIL;
+        
+        if([ret isEqualToString:@"0"] == YES)
+            result = ProfileResultOK;
+        else if([ret isEqualToString:@"1"] == YES)
+            result = ProfileResultFAIL;
+        else if([ret isEqualToString:@"2"] == YES)
+            result = ProfileResultEXISTED;
+        
+        if(callback)
+            callback(result);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if(callback)
+            callback(ProfileResultFAIL);
+        
+    }];
+     */
+    
+    NSData *imageData = UIImageJPEGRepresentation(photo, 0.8);
+    NSMutableURLRequest *request = [self.myClient multipartFormRequestWithMethod:@"post" path:path parameters:profile constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:imageData name:@"image" fileName:@"image.jpg" mimeType:@"image/jpeg"];
+    }];
+    
+    AFHTTPRequestOperation *op = [self.myClient HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString *ret = [NSString stringWithUTF8String:[responseObject bytes]];
+        
+        ProfileResult result = ProfileResultFAIL;
+        
+        if([ret isEqualToString:@"0"] == YES)
+            result = ProfileResultOK;
+        else if([ret isEqualToString:@"1"] == YES)
+            result = ProfileResultFAIL;
+        else if([ret isEqualToString:@"2"] == YES)
+            result = ProfileResultEXISTED;
+        
+        if(callback)
+            callback(result);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if(callback)
+            callback(ProfileResultFAIL);
+        
+    }];
+    
+    [op start];
+}
+
+#pragma mark - utility methods
+
+- (UIImage *)captureView:(UIView *)theView
+{
+    CGRect rect = theView.frame;
+    
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    [theView.layer renderInContext:context];
+    
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return img;
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate

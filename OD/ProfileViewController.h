@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SVProgressHUD.h"
 
-@interface ProfileViewController : UITableViewController <UIImagePickerControllerDelegate, UITextFieldDelegate>
+@interface ProfileViewController : UITableViewController <UIImagePickerControllerDelegate, UITextFieldDelegate, UIActionSheetDelegate>
 {
     
 }
@@ -22,6 +22,14 @@
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UITextField *otherIndustryTextField;
 @property (strong, nonatomic) IBOutlet UIToolbar *keyboardToolbar;
+@property (strong, nonatomic) UIActionSheet *photoActionSheet;
+@property (assign, nonatomic) int gender;
+@property (strong, nonatomic) NSString *job;
+
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *birthdayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cellLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 
 - (IBAction)submitButtonPressed:(id)sender;
 - (IBAction)closeKeyboardPressed:(id)sender;

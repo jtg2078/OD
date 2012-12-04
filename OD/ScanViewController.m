@@ -82,6 +82,14 @@
     
     self.backgroundView.image = self.bgImage;
     self.overlayView.image = self.defaultOverLayImage;
+    
+    NSString *successPath = [[NSBundle mainBundle] pathForResource:@"success" ofType:@"wav"];
+    NSURL *successURL = [NSURL fileURLWithPath:successPath];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)successURL, &OKSound);
+    
+    NSString *failPath = [[NSBundle mainBundle] pathForResource:@"fail" ofType:@"aif"];
+    NSURL *failURL = [NSURL fileURLWithPath:failPath];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)failURL, &FAILSound);
 }
 
 - (void)viewDidUnload
@@ -96,11 +104,13 @@
 {
     [super viewDidAppear:animated];
     [self startZbar];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (void) viewWillDisappear: (BOOL) animated
 {
     [self stopZbar];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     [super viewWillDisappear:animated];
 }
 
@@ -110,12 +120,26 @@
      didReadSymbols: (ZBarSymbolSet*) symbols
           fromImage: (UIImage*) image
 {
-    self.overlayView.image = self.okOverLayImage;
-    int64_t delayInSeconds = 5.0;
+    [self scanFail];
+    int64_t delayInSeconds = 2.0;
+    [self stopZbar];
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self startZbar];
         self.overlayView.image = self.defaultOverLayImage;
     });
+}
+
+- (void)scanOk
+{
+    AudioServicesPlaySystemSound(OKSound);
+    self.overlayView.image = self.okOverLayImage;
+}
+
+- (void)scanFail
+{
+    AudioServicesPlaySystemSound(FAILSound);
+    self.overlayView.image = self.noLayImage;
 }
 
 @end

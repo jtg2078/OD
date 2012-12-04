@@ -68,6 +68,13 @@
 		960C324916661A2C00614D46 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C324516661A2C00614D46 /* UIImage+RoundedCorner.m */; };
 		960C324D1666205300614D46 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 960C324B1666205300614D46 /* libTestFlight.a */; };
 		960C324F166622D300614D46 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 960C324E166622D300614D46 /* libz.dylib */; };
+		962656B6166E18AD00206539 /* VIP.png in Resources */ = {isa = PBXBuildFile; fileRef = 962656B2166E18AD00206539 /* VIP.png */; };
+		962656B7166E18AD00206539 /* QRcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 962656B3166E18AD00206539 /* QRcode.png */; };
+		962656B8166E18AD00206539 /* VIP@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 962656B4166E18AD00206539 /* VIP@2x.png */; };
+		962656B9166E18AD00206539 /* QRcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 962656B5166E18AD00206539 /* QRcode@2x.png */; };
+		969C1047166E56A800B44300 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969C1046166E56A800B44300 /* AudioToolbox.framework */; };
+		969C104F166E603700B44300 /* fail.aif in Resources */ = {isa = PBXBuildFile; fileRef = 969C104D166E603700B44300 /* fail.aif */; };
+		969C1050166E603700B44300 /* success.wav in Resources */ = {isa = PBXBuildFile; fileRef = 969C104E166E603700B44300 /* success.wav */; };
 		96C85450166700B8000A44D8 /* MainFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C8544F166700B8000A44D8 /* MainFunctionViewController.m */; };
 		96FADBB31668A2AD0003D147 /* photoPlaceHolder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FADBB11668A2AD0003D147 /* photoPlaceHolder@2x.png */; };
 		96FADBB41668A2AD0003D147 /* photoPlaceHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FADBB21668A2AD0003D147 /* photoPlaceHolder.png */; };
@@ -188,6 +195,13 @@
 		960C324B1666205300614D46 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		960C324C1666205300614D46 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		960C324E166622D300614D46 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		962656B2166E18AD00206539 /* VIP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIP.png; sourceTree = "<group>"; };
+		962656B3166E18AD00206539 /* QRcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QRcode.png; sourceTree = "<group>"; };
+		962656B4166E18AD00206539 /* VIP@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VIP@2x.png"; sourceTree = "<group>"; };
+		962656B5166E18AD00206539 /* QRcode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRcode@2x.png"; sourceTree = "<group>"; };
+		969C1046166E56A800B44300 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		969C104D166E603700B44300 /* fail.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = fail.aif; sourceTree = "<group>"; };
+		969C104E166E603700B44300 /* success.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success.wav; sourceTree = "<group>"; };
 		96C8544E166700B8000A44D8 /* MainFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainFunctionViewController.h; sourceTree = "<group>"; };
 		96C8544F166700B8000A44D8 /* MainFunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainFunctionViewController.m; sourceTree = "<group>"; };
 		96FADBB11668A2AD0003D147 /* photoPlaceHolder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoPlaceHolder@2x.png"; sourceTree = "<group>"; };
@@ -202,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				969C1047166E56A800B44300 /* AudioToolbox.framework in Frameworks */,
 				96FADBBB1668AB490003D147 /* MessageUI.framework in Frameworks */,
 				960C324F166622D300614D46 /* libz.dylib in Frameworks */,
 				960C32041664BBC800614D46 /* libiconv.dylib in Frameworks */,
@@ -250,6 +265,7 @@
 		960C313E1664AAF600614D46 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				969C1046166E56A800B44300 /* AudioToolbox.framework */,
 				960C31F91664B47500614D46 /* AVFoundation.framework */,
 				960C31EF1664B42900614D46 /* CFNetwork.framework */,
 				960C31E91664B3FD00614D46 /* CoreData.framework */,
@@ -452,6 +468,7 @@
 		960C32091664D08C00614D46 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				969C104C166E603700B44300 /* sound */,
 				960C320D1664DEA200614D46 /* image */,
 				960C320A1664D08C00614D46 /* dummy data */,
 			);
@@ -470,6 +487,10 @@
 		960C320D1664DEA200614D46 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				962656B2166E18AD00206539 /* VIP.png */,
+				962656B3166E18AD00206539 /* QRcode.png */,
+				962656B4166E18AD00206539 /* VIP@2x.png */,
+				962656B5166E18AD00206539 /* QRcode@2x.png */,
 				0AFD0A381668B55100EB9C5A /* bar@2x.png */,
 				96FADBB11668A2AD0003D147 /* photoPlaceHolder@2x.png */,
 				96FADBB21668A2AD0003D147 /* photoPlaceHolder.png */,
@@ -507,6 +528,15 @@
 				960C324C1666205300614D46 /* TestFlight.h */,
 			);
 			path = TestFlight1.2beta;
+			sourceTree = "<group>";
+		};
+		969C104C166E603700B44300 /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				969C104D166E603700B44300 /* fail.aif */,
+				969C104E166E603700B44300 /* success.wav */,
+			);
+			path = sound;
 			sourceTree = "<group>";
 		};
 		96FADBB61668A8310003D147 /* Manager */ = {
@@ -594,6 +624,12 @@
 				0AFD0A391668B55100EB9C5A /* bar@2x.png in Resources */,
 				0AFD0A401668E0C300EB9C5A /* icon57.png in Resources */,
 				0AFD0A431668E0C500EB9C5A /* icon114.png in Resources */,
+				962656B6166E18AD00206539 /* VIP.png in Resources */,
+				962656B7166E18AD00206539 /* QRcode.png in Resources */,
+				962656B8166E18AD00206539 /* VIP@2x.png in Resources */,
+				962656B9166E18AD00206539 /* QRcode@2x.png in Resources */,
+				969C104F166E603700B44300 /* fail.aif in Resources */,
+				969C1050166E603700B44300 /* success.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,7 +698,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jason Tzuhsuan Ling (M9KQ8UVLA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -677,7 +713,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E099B6A2-30B1-4011-8147-CE032AEE6DDD";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -691,7 +726,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jason Tzuhsuan Ling (M9KQ8UVLA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -699,7 +734,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E099B6A2-30B1-4011-8147-CE032AEE6DDD";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -708,7 +742,7 @@
 		960C31601664AAF600614D46 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jason Tzuhsuan Ling (M9KQ8UVLA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jason Tzuhsuan Ling (K9793E2785)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OD/OD-Prefix.pch";
 				INFOPLIST_FILE = "OD/OD-Info.plist";
@@ -720,7 +754,7 @@
 					"\"$(SRCROOT)/Library/TestFlight1.2beta\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E099B6A2-30B1-4011-8147-CE032AEE6DDD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -729,7 +763,7 @@
 		960C31611664AAF600614D46 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jason Tzuhsuan Ling (M9KQ8UVLA9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jason Tzuhsuan Ling (K9793E2785)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OD/OD-Prefix.pch";
 				INFOPLIST_FILE = "OD/OD-Info.plist";
@@ -741,7 +775,7 @@
 					"\"$(SRCROOT)/Library/TestFlight1.2beta\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E099B6A2-30B1-4011-8147-CE032AEE6DDD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

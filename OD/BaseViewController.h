@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "SVProgressHUD.h"
+#import "ODMananger.h"  
 
 @interface BaseViewController : UIViewController
 {
     
 }
 
+@property (nonatomic, weak) ODMananger *manager;
+
 - (BOOL)is4inchScreen;
+
 
 @end

@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import "BaseViewController.h"
 
 @interface ScanViewController : BaseViewController <ZBarReaderViewDelegate>
 {
-    
+    SystemSoundID OKSound;
+    SystemSoundID FAILSound;
 }
 @property (weak, nonatomic) IBOutlet ZBarReaderView *myReaderView;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;

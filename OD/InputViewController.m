@@ -148,7 +148,7 @@
             self.mySegement.hidden = YES;
             self.myTextField.autocorrectionType = UITextAutocorrectionTypeNo;
             
-            if([self.myLabel.text isEqualToString:@"電話"] == YES)
+            if([self.myLabel.text isEqualToString:@"手機"] == YES)
             {
                 self.myTextField.keyboardType = UIKeyboardTypeNumberPad;
                 
