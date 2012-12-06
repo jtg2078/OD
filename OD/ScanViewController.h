@@ -18,10 +18,13 @@
 @property (weak, nonatomic) IBOutlet ZBarReaderView *myReaderView;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
 @property (weak, nonatomic) IBOutlet UIImageView *overlayView;
+@property (weak, nonatomic) IBOutlet UIButton *confirmButton;
 
 @property (strong, nonatomic) UIImage *bgImage;
 @property (strong, nonatomic) UIImage *defaultOverLayImage;
 @property (strong, nonatomic) UIImage *okOverLayImage;
 @property (strong, nonatomic) UIImage *noLayImage;
+
+- (IBAction)confirmButtonPressed:(id)sender;
 
 @end

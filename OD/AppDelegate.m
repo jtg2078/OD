@@ -25,12 +25,10 @@
         // This is will run if it is iOS6
         [TestFlight setDeviceIdentifier:[[[UIDevice currentDevice] identifierForVendor] UUIDString]];
     }
-    else
-    {
-        // This is will run before iOS6 and you can use openUDID or other
-        // method to generate an identifier
-        //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-    }
+    
+    // adjust the tabbar icon image location to compensate the the image size
+    [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0.0, 10.0)];
+    
     
     return YES;
 }

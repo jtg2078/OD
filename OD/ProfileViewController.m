@@ -60,6 +60,15 @@
                                                cancelButtonTitle:@"取消"
                                           destructiveButtonTitle:nil
                                                otherButtonTitles:@"拍攝照片", @"選擇照片", nil];
+    
+    if(self.manager.IS_DEBUG)
+    {
+        self.nameLabel.text = @"Open 小將";
+        self.birthdayLabel.text = @"1970/01/01";
+        self.cellLabel.text = @"0952.024.420";
+        self.emailLabel.text = @"amigo@doublex.com.tw";
+        
+    }
 }
 
 - (void)viewDidUnload
@@ -73,6 +82,7 @@
     [self setBirthdayLabel:nil];
     [self setCellLabel:nil];
     [self setEmailLabel:nil];
+    [self setImagePlaceholderLabel:nil];
     [super viewDidUnload];
 }
 
@@ -160,20 +170,9 @@
 {
 	UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     
-    /*
-    // Resize the image from the camera
-	UIImage *scaledImage = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit
-                                                       bounds:CGSizeMake(self.photoView.frame.size.width,
-                                                                         self.photoView.frame.size.height)
-                                         interpolationQuality:kCGInterpolationHigh];
-    
-    // Crop the image to a square
-    
-    UIImage *croppedImage = [scaledImage croppedImage:CGRectMake((scaledImage.size.width - self.photoView.frame.size.width) / 2, (scaledImage.size.height - self.photoView.frame.size.height) / 2, self.photoView.frame.size.width, self.photoView.frame.size.height)];
-     */
-    
     // Show the photo on the screen
     self.photoView.image = image;
+    self.imagePlaceholderLabel.hidden = YES;
     [picker dismissModalViewControllerAnimated:NO];
 }
 
@@ -205,18 +204,43 @@
     // gathering profile info
     NSMutableDictionary *p = [NSMutableDictionary dictionary];
     
-    [p setObject:self.nameLabel.text                        forKey:@"name"];
-    [p setObject:[NSNumber numberWithInt:self.gender]       forKey:@"gender"];
-    [p setObject:self.cellLabel.text                        forKey:@"phone"];
-    [p setObject:self.emailLabel.text                       forKey:@"email"];
-    [p setObject:self.job                                   forKey:@"job"];
+    if(self.nameLabel.text.length)
+    {
+        [p setObject:self.nameLabel.text forKey:@"name"];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"請輸入姓名"];
+        return;
+    }
     
-    NSArray *birthday = [self.birthdayLabel.text componentsSeparatedByString:@"/"];
-    [p setObject:[birthday objectAtIndex:0]                 forKey:@"birth_y"];
-    [p setObject:[birthday objectAtIndex:1]                 forKey:@"birth_m"];
-    [p setObject:[birthday objectAtIndex:2]                 forKey:@"birth_d"];
+    [p setObject:[NSNumber numberWithInt:self.gender] forKey:@"gender"];
     
-    NSLog(@"profile Dictionary: %@", p);
+    if(self.cellLabel.text.length == 0)
+        self.cellLabel.text = @"";
+    [p setObject:self.cellLabel.text forKey:@"phone"];
+    
+    if(self.emailLabel.text.length)
+    {
+        [p setObject:self.emailLabel.text forKey:@"email"];
+    }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"請輸入Email"];
+        return;
+    }
+    
+    if(self.job.length == 0)
+        self.job = @"";
+    [p setObject:self.job forKey:@"job"];
+    
+    if(self.birthdayLabel.text.length)
+    {
+        NSArray *birthday = [self.birthdayLabel.text componentsSeparatedByString:@"/"];
+        [p setObject:[birthday objectAtIndex:0]                 forKey:@"birth_y"];
+        [p setObject:[birthday objectAtIndex:1]                 forKey:@"birth_m"];
+        [p setObject:[birthday objectAtIndex:2]                 forKey:@"birth_d"];
+    }
     
     UIImage *photo = [self.manager captureView:self.photoView];
     

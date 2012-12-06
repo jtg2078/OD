@@ -42,6 +42,11 @@
     
     [self.myTextField becomeFirstResponder];
     self.myTextField.inputAccessoryView = self.myToolbar;
+    
+    if(self.manager.IS_DEBUG)
+    {
+        self.myTextField.text = @"jason";
+    }
 }
 
 - (void)viewDidUnload
@@ -58,6 +63,7 @@
     [SVProgressHUD show];
     
     [self.manager login:self.myTextField.text callback:^(BOOL result) {
+        self.myTextField.text = @"";
         if(result)
         {
             [SVProgressHUD dismiss];

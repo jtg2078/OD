@@ -60,6 +60,11 @@
         self.df = [[NSDateFormatter alloc] init];
         self.df.dateFormat = @"yyyy/MM/dd";
         
+        if(self.myTextField.text.length == 0)
+        {
+            self.myTextField.text = @"1970/01/01";
+        }
+        
         NSDate *date = [self.df dateFromString:self.myTextField.text];
         if(date)
            [self.myDatePicker setDate:date];
@@ -223,6 +228,14 @@
 - (IBAction)segControlValueChanged:(id)sender
 {
     self.myTextField.text = [self.mySegement titleForSegmentAtIndex:self.mySegement.selectedSegmentIndex];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    return YES;
 }
 
 

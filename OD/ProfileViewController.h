@@ -26,6 +26,7 @@
 @property (assign, nonatomic) int gender;
 @property (strong, nonatomic) NSString *job;
 
+@property (weak, nonatomic) IBOutlet UILabel *imagePlaceholderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *birthdayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *cellLabel;

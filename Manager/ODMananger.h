@@ -32,6 +32,7 @@ typedef enum{
 }
 
 @property (nonatomic, strong) AFHTTPClient *myClient;
+@property (nonatomic, assign) BOOL IS_DEBUG;
 
 + (ODMananger *)sharedInstance;
 - (void)sendEmailWithImage:(UIImage *)image;

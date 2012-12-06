@@ -63,6 +63,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    self.confirmButton.hidden = YES;
+    
     [self zbarSetup];
     
     if([self is4inchScreen])
@@ -70,7 +72,8 @@
         self.defaultOverLayImage = [UIImage imageNamed:@"640x910-w.png"];
         self.okOverLayImage = [UIImage imageNamed:@"640x910-g.png"];
         self.noLayImage = [UIImage imageNamed:@"640x910-r.png"];
-        self.bgImage = [UIImage imageNamed:@"640x910-bg.png"];        
+        self.bgImage = [UIImage imageNamed:@"640x910-bg.png"];
+        self.confirmButton.frame = CGRectMake(60, 340, 200, 45);
     }
     else
     {
@@ -78,6 +81,7 @@
         self.okOverLayImage = [UIImage imageNamed:@"640x734-g.png"];
         self.noLayImage = [UIImage imageNamed:@"640x734-r.png"];
         self.bgImage = [UIImage imageNamed:@"640x734-bg.png"];
+        self.confirmButton.frame = CGRectMake(60, 296, 200, 45);
     }
     
     self.backgroundView.image = self.bgImage;
@@ -97,37 +101,69 @@
     [self zbarCleanUp];
     [self setBackgroundView:nil];
     [self setOverlayView:nil];
+    [self setConfirmButton:nil];
     [super viewDidUnload];
 }
 
-- (void) viewDidAppear: (BOOL) animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self startZbar];
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
-- (void) viewWillDisappear: (BOOL) animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [self stopZbar];
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     [super viewWillDisappear:animated];
 }
 
+#pragma mark - user interaction
+
+- (IBAction)confirmButtonPressed:(id)sender
+{
+    [self scanNormalWithDelay:NO];
+    self.confirmButton.hidden = YES;
+}
+
 #pragma mark - zbar delegate
 
-- (void) readerView: (ZBarReaderView*) readerView
-     didReadSymbols: (ZBarSymbolSet*) symbols
-          fromImage: (UIImage*) image
+- (void)readerView:(ZBarReaderView*)readerView
+    didReadSymbols:(ZBarSymbolSet*)symbols
+         fromImage:(UIImage*)image
 {
-    [self scanFail];
-    int64_t delayInSeconds = 2.0;
-    [self stopZbar];
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self startZbar];
-        self.overlayView.image = self.defaultOverLayImage;
-    });
+    for(ZBarSymbol *sym in symbols)
+    {
+        NSString *code = sym.data;
+        if(self.manager.IS_DEBUG)
+        {
+            code = @"3c86bed3fc88319c7d594ab0ac0e84e2";
+            self.title = code;
+        }
+        
+        [self stopZbar];
+        [self.manager checkScan:code callback:^(ScanResult result) {
+            
+            if(result == ScanResultEnterOK)
+            {
+                [self scanOk];
+                [self scanNormalWithDelay:YES];
+            }
+            else if (result == ScanResultDrinkOK)
+            {
+                [self scanOk];
+                self.confirmButton.hidden = NO;
+            }
+            else
+            {
+                [self scanFail];
+                [self scanNormalWithDelay:YES];
+            }
+            
+        }];
+        break;
+    }
 }
 
 - (void)scanOk
@@ -140,6 +176,31 @@
 {
     AudioServicesPlaySystemSound(FAILSound);
     self.overlayView.image = self.noLayImage;
+}
+
+- (void)scanNormalWithDelay:(BOOL)delay
+{
+    if(delay)
+    {
+        int64_t delayInSeconds = 2.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            
+            if(self.manager.IS_DEBUG)
+                self.title = @"Passbook 掃描";
+            
+            [self startZbar];
+            self.overlayView.image = self.defaultOverLayImage;
+        });
+    }
+    else
+    {
+        if(self.manager.IS_DEBUG)
+            self.title = @"Passbook 掃描";
+        
+        [self startZbar];
+        self.overlayView.image = self.defaultOverLayImage;
+    }
 }
 
 @end

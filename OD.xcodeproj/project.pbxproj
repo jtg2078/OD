@@ -75,6 +75,10 @@
 		969C1047166E56A800B44300 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969C1046166E56A800B44300 /* AudioToolbox.framework */; };
 		969C104F166E603700B44300 /* fail.aif in Resources */ = {isa = PBXBuildFile; fileRef = 969C104D166E603700B44300 /* fail.aif */; };
 		969C1050166E603700B44300 /* success.wav in Resources */ = {isa = PBXBuildFile; fileRef = 969C104E166E603700B44300 /* success.wav */; };
+		96B7EB41166F5F6000F60FAC /* confirm.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B7EB3F166F5F6000F60FAC /* confirm.png */; };
+		96B7EB42166F5F6000F60FAC /* confirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B7EB40166F5F6000F60FAC /* confirm@2x.png */; };
+		96B7EB46166F64D200F60FAC /* inputFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B7EB44166F64D200F60FAC /* inputFrame.png */; };
+		96B7EB47166F64D200F60FAC /* inputFrame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B7EB45166F64D200F60FAC /* inputFrame@2x.png */; };
 		96C85450166700B8000A44D8 /* MainFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C8544F166700B8000A44D8 /* MainFunctionViewController.m */; };
 		96FADBB31668A2AD0003D147 /* photoPlaceHolder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FADBB11668A2AD0003D147 /* photoPlaceHolder@2x.png */; };
 		96FADBB41668A2AD0003D147 /* photoPlaceHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FADBB21668A2AD0003D147 /* photoPlaceHolder.png */; };
@@ -202,6 +206,10 @@
 		969C1046166E56A800B44300 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		969C104D166E603700B44300 /* fail.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = fail.aif; sourceTree = "<group>"; };
 		969C104E166E603700B44300 /* success.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success.wav; sourceTree = "<group>"; };
+		96B7EB3F166F5F6000F60FAC /* confirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = confirm.png; sourceTree = "<group>"; };
+		96B7EB40166F5F6000F60FAC /* confirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confirm@2x.png"; sourceTree = "<group>"; };
+		96B7EB44166F64D200F60FAC /* inputFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inputFrame.png; sourceTree = "<group>"; };
+		96B7EB45166F64D200F60FAC /* inputFrame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inputFrame@2x.png"; sourceTree = "<group>"; };
 		96C8544E166700B8000A44D8 /* MainFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainFunctionViewController.h; sourceTree = "<group>"; };
 		96C8544F166700B8000A44D8 /* MainFunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainFunctionViewController.m; sourceTree = "<group>"; };
 		96FADBB11668A2AD0003D147 /* photoPlaceHolder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoPlaceHolder@2x.png"; sourceTree = "<group>"; };
@@ -487,6 +495,10 @@
 		960C320D1664DEA200614D46 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				96B7EB44166F64D200F60FAC /* inputFrame.png */,
+				96B7EB45166F64D200F60FAC /* inputFrame@2x.png */,
+				96B7EB3F166F5F6000F60FAC /* confirm.png */,
+				96B7EB40166F5F6000F60FAC /* confirm@2x.png */,
 				962656B2166E18AD00206539 /* VIP.png */,
 				962656B3166E18AD00206539 /* QRcode.png */,
 				962656B4166E18AD00206539 /* VIP@2x.png */,
@@ -630,6 +642,10 @@
 				962656B9166E18AD00206539 /* QRcode@2x.png in Resources */,
 				969C104F166E603700B44300 /* fail.aif in Resources */,
 				969C1050166E603700B44300 /* success.wav in Resources */,
+				96B7EB41166F5F6000F60FAC /* confirm.png in Resources */,
+				96B7EB42166F5F6000F60FAC /* confirm@2x.png in Resources */,
+				96B7EB46166F64D200F60FAC /* inputFrame.png in Resources */,
+				96B7EB47166F64D200F60FAC /* inputFrame@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

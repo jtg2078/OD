@@ -8,6 +8,9 @@
 
 #import "ODMananger.h"
 #import "SVProgressHUD.h"
+#import "TestFlight.h"
+
+#define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
 @implementation ODMananger
 
@@ -17,6 +20,20 @@
     if (self) {
         appDelegate = [UIApplication sharedApplication].delegate;
         self.myClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://loryn.dbx.tw"]];
+        self.IS_DEBUG = NO;
+        
+        [self.myClient setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            
+            if(status == AFNetworkReachabilityStatusNotReachable)
+            {
+                [SVProgressHUD showWithStatus:@"無法連上後台, 請確認網路是否正常"
+                                     maskType:SVProgressHUDMaskTypeBlack];
+            }
+            else
+            {
+                [SVProgressHUD dismiss];
+            }
+        }];
     }
     return self;
 }
@@ -44,17 +61,17 @@
 }
 
 - (void)login:(NSString *)code callback:(void (^)(BOOL result))callback
-{
-    NSLog(@"Now checking login code:[%@]", code);
-    
+{    
     NSString *path = @"od/admin/admActionApp/login.php";
     NSDictionary *param = [NSDictionary dictionaryWithObject:code forKey:@"loginPw"];
     [self.myClient postPath:path parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSString *ret = [[NSString alloc] initWithBytes:[responseObject bytes]
+        NSString *ret = [[[NSString alloc] initWithBytes:[responseObject bytes]
                                                  length:[responseObject length]
-                                               encoding:NSUTF8StringEncoding];
+                                               encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
         BOOL result = [ret isEqualToString:@"0"] == YES;
+        
+        NSLog(@"Login code:[%@] check result:%d", code, result);
         
         if(callback)
             callback(result);
@@ -64,44 +81,35 @@
         if(callback)
             callback(NO);
         
+        NSLog(@"Login code:[%@] checked resulted in error:%@", code, error.description);
+        
     }];
 }
 
 - (void)checkScan:(NSString *)code callback:(void (^)(ScanResult result))callback
 {
-    NSString *path = @"";
-    NSDictionary *param = [NSDictionary dictionaryWithObject:code forKey:@"code"];
-    [self.myClient getPath:path parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *path = @"od/admin/admActionApp/qrcode.php";
+    NSDictionary *param = [NSDictionary dictionaryWithObject:code forKey:@"qrcode"];
+    [self.myClient postPath:path parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *ret = [[[NSString alloc] initWithBytes:[responseObject bytes]
+                                                  length:[responseObject length]
+                                                encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        if(self.IS_DEBUG)
+            [SVProgressHUD showSuccessWithStatus:ret];
         
-    }];
-}
-
-/*
- NSData *data = [myDic objectForKey:@"image"];
- 
- NSMutableURLRequest *myRequest = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/app/xueCreatPaletteNew.php" parameters:params constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
- [formData appendPartWithFileData:data name:@"upfile" fileName:@"upfile.jpg" mimeType:@"image/jpeg"];
- }];
- */
-
-- (void)submitProfile:(NSDictionary *)profile photo:(UIImage *)photo callback:(void (^)(ProfileResult result))callback
-{
-    NSString *path = @"od/admin/admActionApp/vipAdd.php";
-    /*
-    [self.myClient postPath:path parameters:profile success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Scan code:[%@] check result:%@", code, ret);
         
-        NSString *ret = [NSString stringWithUTF8String:[responseObject bytes]];
+        ScanResult result = ScanResultEnterFAIL;
         
-        ProfileResult result = ProfileResultFAIL;
-        
-        if([ret isEqualToString:@"0"] == YES)
-            result = ProfileResultOK;
-        else if([ret isEqualToString:@"1"] == YES)
-            result = ProfileResultFAIL;
+        if([ret isEqualToString:@"1"] == YES)
+            result = ScanResultEnterOK;
         else if([ret isEqualToString:@"2"] == YES)
-            result = ProfileResultEXISTED;
+            result = ScanResultEnterFAIL;
+        else if([ret isEqualToString:@"3"] == YES)
+            result = ScanResultDrinkOK;
+        else if([ret isEqualToString:@"4"] == YES)
+            result = ScanResultDrinkFAIL;
         
         if(callback)
             callback(result);
@@ -109,19 +117,29 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         if(callback)
-            callback(ProfileResultFAIL);
+            callback(ScanResultEnterFAIL);
+        
+        NSLog(@"Scan code:[%@] checked resulted in error:%@", code, error.description);
         
     }];
-     */
+}
+
+- (void)submitProfile:(NSDictionary *)profile photo:(UIImage *)photo callback:(void (^)(ProfileResult result))callback
+{
+    NSString *path = @"od/admin/admActionApp/vipAdd.php";
     
     NSData *imageData = UIImageJPEGRepresentation(photo, 0.8);
-    NSMutableURLRequest *request = [self.myClient multipartFormRequestWithMethod:@"post" path:path parameters:profile constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    NSMutableURLRequest *request = [self.myClient multipartFormRequestWithMethod:@"POST" path:path parameters:profile constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"image" fileName:@"image.jpg" mimeType:@"image/jpeg"];
     }];
     
     AFHTTPRequestOperation *op = [self.myClient HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSString *ret = [NSString stringWithUTF8String:[responseObject bytes]];
+        NSString *ret = [[[NSString alloc] initWithBytes:[responseObject bytes]
+                                                 length:[responseObject length]
+                                               encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        
+        NSLog(@"Profile submitted: %@ Result: %@", profile, ret);
         
         ProfileResult result = ProfileResultFAIL;
         
@@ -139,6 +157,8 @@
         
         if(callback)
             callback(ProfileResultFAIL);
+        
+        NSLog(@"Profile submitted: %@ Errored: %@", profile, error.description);
         
     }];
     
