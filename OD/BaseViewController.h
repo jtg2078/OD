@@ -18,6 +18,7 @@
 @property (nonatomic, weak) ODMananger *manager;
 
 - (BOOL)is4inchScreen;
+- (BOOL)isRunningiOS6;
 
 
 @end

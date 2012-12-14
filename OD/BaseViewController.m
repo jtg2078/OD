@@ -44,4 +44,9 @@
     return [[UIScreen mainScreen ] bounds].size.height >= 568.0f;
 }
 
+- (BOOL)isRunningiOS6
+{
+    return [[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0;
+}
+
 @end

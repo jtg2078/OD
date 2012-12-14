@@ -19,7 +19,7 @@
     self = [super init];
     if (self) {
         appDelegate = [UIApplication sharedApplication].delegate;
-        self.myClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://loryn.dbx.tw"]];
+        self.myClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://www.o-d.asia"]];
         self.IS_DEBUG = NO;
         
         [self.myClient setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
@@ -62,7 +62,7 @@
 
 - (void)login:(NSString *)code callback:(void (^)(BOOL result))callback
 {    
-    NSString *path = @"od/admin/admActionApp/login.php";
+    NSString *path = @"admin/admActionApp/login.php";
     NSDictionary *param = [NSDictionary dictionaryWithObject:code forKey:@"loginPw"];
     [self.myClient postPath:path parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -88,7 +88,7 @@
 
 - (void)checkScan:(NSString *)code callback:(void (^)(ScanResult result))callback
 {
-    NSString *path = @"od/admin/admActionApp/qrcode.php";
+    NSString *path = @"admin/admActionApp/qrcode.php";
     NSDictionary *param = [NSDictionary dictionaryWithObject:code forKey:@"qrcode"];
     [self.myClient postPath:path parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -126,7 +126,7 @@
 
 - (void)submitProfile:(NSDictionary *)profile photo:(UIImage *)photo callback:(void (^)(ProfileResult result))callback
 {
-    NSString *path = @"od/admin/admActionApp/vipAdd.php";
+    NSString *path = @"admin/admActionApp/vipAdd.php";
     
     NSData *imageData = UIImageJPEGRepresentation(photo, 0.8);
     NSMutableURLRequest *request = [self.myClient multipartFormRequestWithMethod:@"POST" path:path parameters:profile constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
