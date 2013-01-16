@@ -8,6 +8,7 @@
 
 #import "ProfileViewController.h"
 #import "InputViewController.h"
+#import "SelectionViewController.h"
 #import "UIImage+Resize.h"
 #import "AppDelegate.h"
 #import "ODMananger.h"
@@ -69,6 +70,11 @@
         self.emailLabel.text = @"amigo@doublex.com.tw";
         
     }
+    
+    dynamicContentSection = 5;
+    
+    if(self.manager.questions)
+        self.preferences = [NSMutableDictionary dictionary];
 }
 
 - (void)viewDidUnload
@@ -97,13 +103,83 @@
         ivc.detailText = self.currentCellDetailLabel.text;
         ivc.writeBackLabel = self.currentCellDetailLabel;
     }
+    else if([segue.identifier isEqualToString:@"pushSelectionViewController"] == YES)
+    {
+        NSDictionary *info = [self.manager.questions objectAtIndex:selectedDynamicContentRow];
+        
+        NSMutableArray *p = [self.preferences objectForKey:info[@"key"]];
+        if(p == nil)
+        {
+            NSMutableArray *array = [NSMutableArray array];
+            for(int i = 0; i < [info[@"choice"] count]; i++)
+            {
+                [array addObject:@(NO)];
+            }
+            
+            p = array;
+            [self.preferences setObject:p forKey:info[@"key"]];
+        }
+        
+        SelectionViewController *svc = segue.destinationViewController;
+        svc.questionIndex = selectedDynamicContentRow;
+        svc.selectState = p;
+    }
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if(section == dynamicContentSection)
+        return self.manager.questions.count;
+    else
+        return [super tableView:tableView numberOfRowsInSection:section];
 }
 
 #pragma mark - Table view delegate
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.manager.questions)
+    {
+        if(indexPath.section == dynamicContentSection)
+        {
+            static NSString *cellIdentifier = @"QuestionCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if(cell == nil)
+            {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
+                                              reuseIdentifier:cellIdentifier];
+                cell.textLabel.backgroundColor = [UIColor clearColor];
+                cell.detailTextLabel.backgroundColor = [UIColor clearColor];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            
+            NSDictionary *info = [self.manager.questions objectAtIndex:indexPath.row];
+            
+            if(indexPath.row == 0)
+                cell.textLabel.text = @"其他";
+            else
+                cell.textLabel.text = @" ";
+            
+            cell.detailTextLabel.text = info[@"question"];
+            
+            return cell;
+        }
+        else
+        {
+            return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+        }
+    }
+    else
+    {
+        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     if(indexPath.section == 0 && indexPath.row == 0)
     {
@@ -149,6 +225,15 @@
             self.job = self.otherIndustryTextField.text;
         else
             self.job = cell.detailTextLabel.text;
+    }
+    else if(indexPath.section == dynamicContentSection)
+    {
+        self.currentCellLabel = nil;
+        self.currentCellDetailLabel = nil;
+        
+        selectedDynamicContentRow = indexPath.row;
+        
+        [self performSegueWithIdentifier:@"pushSelectionViewController" sender:self];
     }
     else
     {
@@ -241,6 +326,23 @@
         [p setObject:[birthday objectAtIndex:1]                 forKey:@"birth_m"];
         [p setObject:[birthday objectAtIndex:2]                 forKey:@"birth_d"];
     }
+    
+    // setup preference
+    [self.preferences enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray *choices, BOOL *stop) {
+        NSMutableArray *selected = [NSMutableArray array];
+        for(int i = 0; i < choices.count; i++)
+        {
+            if([choices[i] boolValue] == YES)
+                [selected addObject:[NSString stringWithFormat:@"%d", i]];
+        }
+        
+        if(selected.count)
+        {
+            NSString *value = [selected componentsJoinedByString:@","];
+            [p setObject:value forKey:key];
+        }
+    }];
+    
     
     UIImage *photo = [self.manager captureView:self.photoView];
     

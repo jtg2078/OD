@@ -72,6 +72,7 @@
 		962656B7166E18AD00206539 /* QRcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 962656B3166E18AD00206539 /* QRcode.png */; };
 		962656B8166E18AD00206539 /* VIP@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 962656B4166E18AD00206539 /* VIP@2x.png */; };
 		962656B9166E18AD00206539 /* QRcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 962656B5166E18AD00206539 /* QRcode@2x.png */; };
+		964B891516A68FFE00D9AD59 /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964B891416A68FFE00D9AD59 /* SelectionViewController.m */; };
 		969C1047166E56A800B44300 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969C1046166E56A800B44300 /* AudioToolbox.framework */; };
 		969C104F166E603700B44300 /* fail.aif in Resources */ = {isa = PBXBuildFile; fileRef = 969C104D166E603700B44300 /* fail.aif */; };
 		969C1050166E603700B44300 /* success.wav in Resources */ = {isa = PBXBuildFile; fileRef = 969C104E166E603700B44300 /* success.wav */; };
@@ -203,6 +204,8 @@
 		962656B3166E18AD00206539 /* QRcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QRcode.png; sourceTree = "<group>"; };
 		962656B4166E18AD00206539 /* VIP@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VIP@2x.png"; sourceTree = "<group>"; };
 		962656B5166E18AD00206539 /* QRcode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRcode@2x.png"; sourceTree = "<group>"; };
+		964B891316A68FFE00D9AD59 /* SelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionViewController.h; sourceTree = "<group>"; };
+		964B891416A68FFE00D9AD59 /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionViewController.m; sourceTree = "<group>"; };
 		969C1046166E56A800B44300 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		969C104D166E603700B44300 /* fail.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = fail.aif; sourceTree = "<group>"; };
 		969C104E166E603700B44300 /* success.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success.wav; sourceTree = "<group>"; };
@@ -460,6 +463,8 @@
 				960C323716660D6200614D46 /* PasswordViewController.m */,
 				96C8544E166700B8000A44D8 /* MainFunctionViewController.h */,
 				96C8544F166700B8000A44D8 /* MainFunctionViewController.m */,
+				964B891316A68FFE00D9AD59 /* SelectionViewController.h */,
+				964B891416A68FFE00D9AD59 /* SelectionViewController.m */,
 			);
 			name = VIP;
 			sourceTree = "<group>";
@@ -680,6 +685,7 @@
 				960C324916661A2C00614D46 /* UIImage+RoundedCorner.m in Sources */,
 				96C85450166700B8000A44D8 /* MainFunctionViewController.m in Sources */,
 				96FADBB91668A8BE0003D147 /* ODMananger.m in Sources */,
+				964B891516A68FFE00D9AD59 /* SelectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,8 +775,9 @@
 					"\"$(SRCROOT)/Library/ZBarSDK\"",
 					"\"$(SRCROOT)/Library/TestFlight1.2beta\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C5AC9A89-2BE5-4DBC-A6A3-352C8B1A3F08";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -791,7 +798,7 @@
 					"\"$(SRCROOT)/Library/TestFlight1.2beta\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C5AC9A89-2BE5-4DBC-A6A3-352C8B1A3F08";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

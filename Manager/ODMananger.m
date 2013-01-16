@@ -18,8 +18,13 @@
 {
     self = [super init];
     if (self) {
+        
+        BOOL development_mode = NO;
+        
+        NSString *baseURL = development_mode ? @"http://loryn.dbx.tw/odasia/" : @"http://www.o-d.asia";
+        
         appDelegate = [UIApplication sharedApplication].delegate;
-        self.myClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://www.o-d.asia"]];
+        self.myClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:baseURL]];
         self.IS_DEBUG = NO;
         
         [self.myClient setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
@@ -159,6 +164,36 @@
             callback(ProfileResultFAIL);
         
         NSLog(@"Profile submitted: %@ Errored: %@", profile, error.description);
+        
+    }];
+    
+    [op start];
+}
+
+- (void)downloadQuestion:(void (^)(DownloadResult result))callback
+{
+    NSString *url = @"http://loryn.dbx.tw/odasia/admin/admActionApp/vipQuestion.php";
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        
+        //NSLog(@"downloadQuestion: %@", [JSON description]);
+        
+        self.questions = (NSArray *)JSON;
+        
+        DownloadResult result = DownloadResultFAIL;
+        
+        if(self.questions.count)
+            result = DownloadResultOK;
+        
+        if(callback)
+            callback(result);
+            
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        
+        if(callback)
+            callback(DownloadResultFAIL);
+        
+        NSLog(@"downloadQuestion - url: %@ error: %@", [JSON description], error);
         
     }];
     

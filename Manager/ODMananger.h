@@ -25,6 +25,11 @@ typedef enum{
     ProfileResultEXISTED,
 }ProfileResult;
 
+typedef enum{
+    DownloadResultOK,
+    DownloadResultFAIL,
+}DownloadResult;
+
 
 @interface ODMananger : NSObject <MFMailComposeViewControllerDelegate>
 {
@@ -33,6 +38,7 @@ typedef enum{
 
 @property (nonatomic, strong) AFHTTPClient *myClient;
 @property (nonatomic, assign) BOOL IS_DEBUG;
+@property (nonatomic, strong) NSArray *questions;
 
 + (ODMananger *)sharedInstance;
 - (void)sendEmailWithImage:(UIImage *)image;
@@ -46,6 +52,8 @@ typedef enum{
 - (void)submitProfile:(NSDictionary *)profile
                 photo:(UIImage *)photo
              callback:(void (^)(ProfileResult result))callback;
+
+- (void)downloadQuestion:(void (^)(DownloadResult result))callback;
 
 - (UIImage *)captureView:(UIView *)theView;
 

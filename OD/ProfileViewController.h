@@ -12,7 +12,8 @@
 
 @interface ProfileViewController : UITableViewController <UIImagePickerControllerDelegate, UITextFieldDelegate, UIActionSheetDelegate>
 {
-    
+    int dynamicContentSection;
+    int selectedDynamicContentRow;
 }
 
 @property (nonatomic, strong) UILabel *currentCellLabel;
@@ -31,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *birthdayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *cellLabel;
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;
+
+@property (strong, nonatomic) NSMutableDictionary *preferences;
 
 - (IBAction)submitButtonPressed:(id)sender;
 - (IBAction)closeKeyboardPressed:(id)sender;

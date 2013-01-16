@@ -66,8 +66,13 @@
         self.myTextField.text = @"";
         if(result)
         {
-            [SVProgressHUD dismiss];
-            [self performSegueWithIdentifier:@"goToVIPMainView" sender:self];
+            [self.manager downloadQuestion:^(DownloadResult result) {
+                if(result == DownloadResultFAIL)
+                    [SVProgressHUD showErrorWithStatus:@"下載問題失敗"];
+                else
+                    [SVProgressHUD dismiss];
+                [self performSegueWithIdentifier:@"goToVIPMainView" sender:self];
+            }];
         }
         else
         {
