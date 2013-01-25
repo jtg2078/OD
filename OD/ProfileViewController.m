@@ -344,7 +344,9 @@
     }];
     
     
-    UIImage *photo = [self.manager captureView:self.photoView];
+    UIImage *photo = nil;
+    if(self.photoView.image)
+        photo = [self.manager captureView:self.photoView];
     
     [self.manager submitProfile:p photo:photo callback:^(ProfileResult result) {
         

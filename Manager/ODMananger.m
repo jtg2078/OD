@@ -133,10 +133,19 @@
 {
     NSString *path = @"admin/admActionApp/vipAdd.php";
     
-    NSData *imageData = UIImageJPEGRepresentation(photo, 0.8);
-    NSMutableURLRequest *request = [self.myClient multipartFormRequestWithMethod:@"POST" path:path parameters:profile constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imageData name:@"image" fileName:@"image.jpg" mimeType:@"image/jpeg"];
-    }];
+    NSMutableURLRequest *request = nil;
+    
+    if(photo)
+    {
+        NSData *imageData = UIImageJPEGRepresentation(photo, 0.8);
+        request = [self.myClient multipartFormRequestWithMethod:@"POST" path:path parameters:profile constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:imageData name:@"image" fileName:@"image.jpg" mimeType:@"image/jpeg"];
+        }];
+    }
+    else
+    {
+        request = [self.myClient requestWithMethod:@"POST" path:path parameters:profile];
+    }
     
     AFHTTPRequestOperation *op = [self.myClient HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
