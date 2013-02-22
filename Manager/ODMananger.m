@@ -181,8 +181,9 @@
 
 - (void)downloadQuestion:(void (^)(DownloadResult result))callback
 {
-    NSString *url = @"http://loryn.dbx.tw/odasia/admin/admActionApp/vipQuestion.php";
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSString *path = @"admin/admActionApp/vipQuestion.php";
+    NSURLRequest *request = [self.myClient requestWithMethod:@"GET" path:path parameters:nil];
+    
     AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         
         //NSLog(@"downloadQuestion: %@", [JSON description]);
